@@ -5,6 +5,8 @@ import torch
 import gluonnlp as nlp
 from mxnet import gluon
 import torch.nn as nn
+from flask_cors import CORS
+
 
 class BERTClassifier(nn.Module):
     def __init__(self,
@@ -51,29 +53,41 @@ tok = nlp.data.BERTSPTokenizer(tokenizer, vocab, lower=False)
 transform = nlp.data.BERTSentenceTransform(
         tok, max_seq_length=max_len, pad=True, pair=False)
 model = BERTClassifier(bertmodel,  dr_rate=0.5).to(device)
+model.eval()
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def index():
     return 'Hello World!'
 
 
-@app.route('/predict', methods=['GET'])
+@app.route('/predict', methods=['POST'])
 def predict():
-  text = request.args.get('text')
-  text = '안녕하세요'
+  params = request.get_json()
+  print(params)
+  text = params['text']
+  # text = request.args.get('text')
+  print(text)
   sent_dataset = gluon.data.SimpleDataset([text,])
   sentences = sent_dataset.transform(transform)
+
   token_ids, valid_length, segment_ids = sentences[0]
-  token_ids = torch.from_numpy(token_ids)
+
+  token_ids = torch.from_numpy(token_ids.reshape((1, -1)))
   print(valid_length, type(valid_length))
-  valid_length = torch.from_numpy(valid_length)
-  segment_ids = torch.from_numpy(segment_ids)
+  valid_length = torch.from_numpy(valid_length.reshape((1, -1)))
+  segment_ids = torch.from_numpy(segment_ids.reshape((1, -1)))
+  print(token_ids.shape, valid_length.shape, segment_ids.shape)
 
   token_ids = token_ids.long().to(device)
   segment_ids = segment_ids.long().to(device)
   valid_length= valid_length
   out = model(token_ids, valid_length, segment_ids)
-  return f'{out.data.cpu().numpy()}'
+  _, pred = torch.max(out, 1)
+  pred = pred.cpu().numpy()[0]
+  return f'{out.data.cpu().numpy()} {pred}'
+
+
 app.run(host = '0.0.0.0', port=38443)

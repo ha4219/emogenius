@@ -145,8 +145,8 @@ for e in range(num_epochs):
 
     _, preds = torch.max(out, 1)
     
-    running_loss += loss.item() * token_ids.size(0)
-    running_corrects += torch.sum(preds == label.data)
+    running_loss += loss.cpu().item() * token_ids.size(0)
+    running_corrects += torch.sum(preds.cpu() == label.cpu().data)
     # if batch_id % log_interval == 0:
     #     print("epoch {} batch id {} loss {} train acc {}".format(e+1, batch_id+1, loss.data.cpu().numpy(), train_acc / (batch_id+1)))
   train_loss = running_loss / len(train_dataloader.dataset)
@@ -172,8 +172,8 @@ for e in range(num_epochs):
 
     _, preds = torch.max(out, 1)
     
-    running_loss += loss.item() * token_ids.size(0)
-    running_corrects += torch.sum(preds == label.data)
+    running_loss += loss.cpu().item() * token_ids.size(0)
+    running_corrects += torch.sum(preds.cpu() == label.cpu().data)
     # if batch_id % log_interval == 0:
     #     print("epoch {} batch id {} loss {} train acc {}".format(e+1, batch_id+1, loss.data.cpu().numpy(), train_acc / (batch_id+1)))
   test_loss = running_loss / len(train_dataloader.dataset)

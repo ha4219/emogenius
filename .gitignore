@@ -1,6 +1,10 @@
 KoBERT
 .cache
-__pycache__
 *.pt
 *.npy
 runs
+__pycache__/
+__pycache__
+*.py[cod]
+
+

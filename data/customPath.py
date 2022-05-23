@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 def _get_path_name(model: str, des: str):
     now = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
-    return f'runs/{now}_{model}_{des}'
+    return f'{now}_{model}_{des}'
 
 
 def _mkdir_path(path: str):
