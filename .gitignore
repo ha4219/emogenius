@@ -1,1 +1,6 @@
 KoBERT
+.cache
+__pycache__
+*.pt
+*.npy
+runs

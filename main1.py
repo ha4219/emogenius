@@ -23,7 +23,7 @@ from data.customPath import _get_path_name, _mkdir_path, _plot_acc, _plot_loss
 
 
 #GPU 사용
-device = torch.device("cuda:3")
+device = torch.device("cuda:1")
 #BERT 모델, Vocabulary 불러오기
 bertmodel, vocab = get_pytorch_kobert_model()
 
@@ -125,9 +125,7 @@ for e in range(num_epochs):
   train_loss = 0.0
   test_acc = 0.0
   test_loss = 0.0
-  
-  running_loss = 0.0
-  running_corrects = 0
+
 
   model.train()
   for batch_id, (token_ids, valid_length, segment_ids, label) in enumerate(tqdm(train_dataloader)):
@@ -142,25 +140,15 @@ for e in range(num_epochs):
     torch.nn.utils.clip_grad_norm_(model.parameters(), max_grad_norm)
     optimizer.step()
     scheduler.step()  # Update learning rate schedule
-
-    _, preds = torch.max(out, 1)
-    
-    running_loss += loss.item() * token_ids.size(0)
-    running_corrects += torch.sum(preds == label.data)
+    train_acc += calc_accuracy(out, label)
+    train_loss += loss.item() * token_ids.size(0)
     # if batch_id % log_interval == 0:
     #     print("epoch {} batch id {} loss {} train acc {}".format(e+1, batch_id+1, loss.data.cpu().numpy(), train_acc / (batch_id+1)))
-  train_loss = running_loss / len(train_dataloader.dataset)
-  train_acc = running_corrects.double() / len(train_dataloader.dataset)
-  
   train_acc_history.append(train_acc)
   train_loss_history.append(train_loss)
 
-  print("epoch {} train acc {}".format(e+1, train_acc))
+  print("epoch {} train acc {}".format(e+1, train_acc / (batch_id+1)))
   
-
-  running_loss = 0.0
-  running_corrects = 0
-
   model.eval()
   for batch_id, (token_ids, valid_length, segment_ids, label) in enumerate(tqdm(test_dataloader)):
     token_ids = token_ids.long().to(device)
@@ -168,16 +156,8 @@ for e in range(num_epochs):
     valid_length= valid_length
     label = label.long().to(device)
     out = model(token_ids, valid_length, segment_ids)
-    
-
-    _, preds = torch.max(out, 1)
-    
-    running_loss += loss.item() * token_ids.size(0)
-    running_corrects += torch.sum(preds == label.data)
-    # if batch_id % log_interval == 0:
-    #     print("epoch {} batch id {} loss {} train acc {}".format(e+1, batch_id+1, loss.data.cpu().numpy(), train_acc / (batch_id+1)))
-  test_loss = running_loss / len(train_dataloader.dataset)
-  test_acc = running_corrects.double() / len(train_dataloader.dataset)
+    test_acc += calc_accuracy(out, label)
+    test_loss += loss.item() * token_ids.size(0)
   
   val_acc_history.append(test_acc)
   val_loss_history.append(test_loss)
@@ -185,7 +165,7 @@ for e in range(num_epochs):
   if test_acc > best_acc:
     best_acc = test_acc
     best_model = deepcopy(model.state_dict())
-  print("epoch {} test acc {}".format(e+1, test_acc))
+  print("epoch {} test acc {}".format(e+1, test_acc / (batch_id+1)))
 
 
 time_elapsed = time() - since
