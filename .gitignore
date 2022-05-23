@@ -1,10 +1,6 @@
 KoBERT
 .cache
-<<<<<<< HEAD
 __pycache__
 *.pt
 *.npy
 runs
-=======
-__pycache__
->>>>>>> refs/remotes/origin/dev

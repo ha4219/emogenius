@@ -1,8 +1,4 @@
 from copy import deepcopy
-<<<<<<< HEAD
-=======
-from statistics import mode
->>>>>>> refs/remotes/origin/dev
 from time import time
 import torch
 from torch import nn
@@ -22,17 +18,12 @@ from transformers.optimization import get_cosine_schedule_with_warmup
 
 from dataset import CustomDataset
 from preprocessing import preprocessing
-<<<<<<< HEAD
 import matplotlib.pyplot as plt
 from data.customPath import _get_path_name, _mkdir_path, _plot_acc, _plot_loss
 
 
 #GPU 사용
 device = torch.device("cuda:3")
-=======
-#GPU 사용
-device = torch.device("cuda:0")
->>>>>>> refs/remotes/origin/dev
 #BERT 모델, Vocabulary 불러오기
 bertmodel, vocab = get_pytorch_kobert_model()
 
@@ -45,12 +36,9 @@ max_grad_norm = 1
 log_interval = 200
 learning_rate =  5e-5
 
-<<<<<<< HEAD
 NAME = 'kobert_init'
 DESC = ''
 
-=======
->>>>>>> refs/remotes/origin/dev
 #토큰화
 tokenizer = get_tokenizer()
 tok = nlp.data.BERTSPTokenizer(tokenizer, vocab, lower=False)
@@ -124,7 +112,6 @@ def calc_accuracy(X,Y):
     
 best_acc = 0
 best_model = deepcopy(model.state_dict())
-<<<<<<< HEAD
 train_acc_history = []
 train_loss_history = []
 val_acc_history = []
@@ -142,14 +129,6 @@ for e in range(num_epochs):
   running_loss = 0.0
   running_corrects = 0
 
-=======
-
-since = time()
-
-for e in range(num_epochs):
-  train_acc = 0.0
-  test_acc = 0.0
->>>>>>> refs/remotes/origin/dev
   model.train()
   for batch_id, (token_ids, valid_length, segment_ids, label) in enumerate(tqdm(train_dataloader)):
     optimizer.zero_grad()
@@ -163,7 +142,6 @@ for e in range(num_epochs):
     torch.nn.utils.clip_grad_norm_(model.parameters(), max_grad_norm)
     optimizer.step()
     scheduler.step()  # Update learning rate schedule
-<<<<<<< HEAD
 
     _, preds = torch.max(out, 1)
     
@@ -183,13 +161,6 @@ for e in range(num_epochs):
   running_loss = 0.0
   running_corrects = 0
 
-=======
-    train_acc += calc_accuracy(out, label)
-    # if batch_id % log_interval == 0:
-    #     print("epoch {} batch id {} loss {} train acc {}".format(e+1, batch_id+1, loss.data.cpu().numpy(), train_acc / (batch_id+1)))
-  print("epoch {} train acc {}".format(e+1, train_acc / (batch_id+1)))
-  
->>>>>>> refs/remotes/origin/dev
   model.eval()
   for batch_id, (token_ids, valid_length, segment_ids, label) in enumerate(tqdm(test_dataloader)):
     token_ids = token_ids.long().to(device)
@@ -197,7 +168,6 @@ for e in range(num_epochs):
     valid_length= valid_length
     label = label.long().to(device)
     out = model(token_ids, valid_length, segment_ids)
-<<<<<<< HEAD
     
 
     _, preds = torch.max(out, 1)
@@ -216,20 +186,12 @@ for e in range(num_epochs):
     best_acc = test_acc
     best_model = deepcopy(model.state_dict())
   print("epoch {} test acc {}".format(e+1, test_acc))
-=======
-    test_acc += calc_accuracy(out, label)
-  if test_acc > best_acc:
-    best_acc = test_acc
-    best_model = deepcopy(model.state_dict())
-  print("epoch {} test acc {}".format(e+1, test_acc / (batch_id+1)))
->>>>>>> refs/remotes/origin/dev
 
 
 time_elapsed = time() - since
 print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
 print('Best val Acc: {:4f}'.format(best_acc))
 
-<<<<<<< HEAD
 path = _get_path_name(NAME, DESC)
 _mkdir_path(path)
 _plot_acc(path, training_acc=train_acc_history, validation_acc=val_acc_history)
@@ -237,7 +199,3 @@ _plot_loss(path, training_loss=train_loss_history, validation_loss=val_loss_hist
 
 model.load_state_dict(best_model)
 torch.save(model, f"{path}/{NAME}.pt")
-=======
-model.load_state_dict(best_model)
-torch.save(model, './model.pt')
->>>>>>> refs/remotes/origin/dev
