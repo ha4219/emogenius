@@ -96,4 +96,4 @@ def predict():
   return jsonify({'result': pred})
 
 
-app.run(host = '0.0.0.0', port=38443)
+app.run(host = '0.0.0.0', port=80)
