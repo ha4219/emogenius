@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask import request
 from kobert import get_pytorch_kobert_model, get_tokenizer
 import torch
@@ -7,6 +7,7 @@ from mxnet import gluon
 import torch.nn as nn
 from flask_cors import CORS
 
+PATH = 'server/kobert_init.pt'
 
 class BERTClassifier(nn.Module):
     def __init__(self,
@@ -46,13 +47,18 @@ max_grad_norm = 1
 log_interval = 200
 learning_rate =  5e-5
 
-device = torch.device("cuda:1")
+device = torch.device("cpu")
 bertmodel, vocab = get_pytorch_kobert_model()
 tokenizer = get_tokenizer()
 tok = nlp.data.BERTSPTokenizer(tokenizer, vocab, lower=False)
 transform = nlp.data.BERTSentenceTransform(
         tok, max_seq_length=max_len, pad=True, pair=False)
 model = BERTClassifier(bertmodel,  dr_rate=0.5).to(device)
+
+ckpt = torch.load(PATH, map_location='cpu')
+csd = ckpt.float().state_dict()
+model.load_state_dict(csd, strict=False)
+
 model.eval()
 
 app = Flask(__name__)
@@ -87,7 +93,7 @@ def predict():
   out = model(token_ids, valid_length, segment_ids)
   _, pred = torch.max(out, 1)
   pred = pred.cpu().numpy()[0]
-  return f'{out.data.cpu().numpy()} {pred}'
+  return jsonify({'result': pred})
 
 
 app.run(host = '0.0.0.0', port=38443)
