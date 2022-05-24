@@ -176,8 +176,8 @@ for e in range(num_epochs):
     running_corrects += torch.sum(preds.cpu() == label.cpu().data)
     # if batch_id % log_interval == 0:
     #     print("epoch {} batch id {} loss {} train acc {}".format(e+1, batch_id+1, loss.data.cpu().numpy(), train_acc / (batch_id+1)))
-  test_loss = running_loss / len(train_dataloader.dataset)
-  test_acc = running_corrects.double() / len(train_dataloader.dataset)
+  test_loss = running_loss / len(test_dataloader.dataset)
+  test_acc = running_corrects.double() / len(test_dataloader.dataset)
   
   val_acc_history.append(test_acc)
   val_loss_history.append(test_loss)
