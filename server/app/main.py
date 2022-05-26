@@ -7,7 +7,7 @@ from mxnet import gluon
 import torch.nn as nn
 from flask_cors import CORS
 
-PATH = 'server/app/kobert_init.pt'
+PATH = 'kobert_init.pt'
 
 class BERTClassifier(nn.Module):
     def __init__(self,
