@@ -7,7 +7,7 @@ from mxnet import gluon
 import torch.nn as nn
 from flask_cors import CORS
 
-PATH = 'server/kobert_init.pt'
+PATH = 'server/app/kobert_init.pt'
 
 class BERTClassifier(nn.Module):
     def __init__(self,
@@ -55,9 +55,7 @@ transform = nlp.data.BERTSentenceTransform(
         tok, max_seq_length=max_len, pad=True, pair=False)
 model = BERTClassifier(bertmodel,  dr_rate=0.5).to(device)
 
-ckpt = torch.load(PATH, map_location='cpu')
-csd = ckpt.float().state_dict()
-model.load_state_dict(csd, strict=False)
+model.load_state_dict(torch.load(PATH, map_location='cpu'), strict=False)
 
 model.eval()
 
@@ -75,17 +73,14 @@ def predict():
   print(params)
   text = params['text']
   # text = request.args.get('text')
-  print(text)
   sent_dataset = gluon.data.SimpleDataset([text,])
   sentences = sent_dataset.transform(transform)
 
   token_ids, valid_length, segment_ids = sentences[0]
 
   token_ids = torch.from_numpy(token_ids.reshape((1, -1)))
-  print(valid_length, type(valid_length))
   valid_length = torch.from_numpy(valid_length.reshape((1, -1)))
   segment_ids = torch.from_numpy(segment_ids.reshape((1, -1)))
-  print(token_ids.shape, valid_length.shape, segment_ids.shape)
 
   token_ids = token_ids.long().to(device)
   segment_ids = segment_ids.long().to(device)
@@ -93,7 +88,9 @@ def predict():
   out = model(token_ids, valid_length, segment_ids)
   _, pred = torch.max(out, 1)
   pred = pred.cpu().numpy()[0]
-  return jsonify({'result': pred})
+  res = {'result': int(pred)}
+  print(res)
+  return jsonify(res)
 
-
-app.run(host = '0.0.0.0', port=80)
+if __name__ == '__main__':
+    app.run(host = '0.0.0.0', port=80)

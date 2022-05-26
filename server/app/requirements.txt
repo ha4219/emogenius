@@ -1,0 +1,10 @@
+kobert @ git+https://git@github.com/SKTBrain/KoBERT.git@e1f2f37055e7460d8427f6912579c0162cb69831
+boto3
+gluonnlp >= 0.6.0
+mxnet >= 1.4.0
+onnxruntime == 1.8.0
+sentencepiece >= 0.1.6
+torch >= 1.7.0
+transformers >= 4.8.1
+flask
+flask-cors

@@ -17,7 +17,7 @@ from transformers import AdamW
 from transformers.optimization import get_cosine_schedule_with_warmup
 
 from dataset import CustomDataset
-from preprocessing import preprocessing
+from preprocessing import preprocessing, preprocessing_limit
 import matplotlib.pyplot as plt
 from data.customPath import _get_path_name, _mkdir_path, _plot_acc, _plot_loss
 
@@ -198,4 +198,4 @@ _plot_acc(path, training_acc=train_acc_history, validation_acc=val_acc_history)
 _plot_loss(path, training_loss=train_loss_history, validation_loss=val_loss_history)
 
 model.load_state_dict(best_model)
-torch.save(model, f"{path}/{NAME}.pt")
+torch.save(model.state_dict(), f"{path}/{NAME}.pt")
