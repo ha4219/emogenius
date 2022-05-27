@@ -1,0 +1,20 @@
+{
+  "name": "emogenius",
+  "version": "1.0.0",
+  "description": "한국어 문장의 감정을 이해해 그에 알맞는 이모지를 추천합니다.",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["activeTab", "scripting"],
+  "action": {},
+  "icons": { "16": "icon16.png", "48": "icon48.png", "128": "icon128.png" },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+U",
+        "mac": "Command+U"
+      }
+    }
+  }
+}
