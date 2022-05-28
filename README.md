@@ -19,8 +19,10 @@
 - [emogenius](https://github.com/ha4219/emogenius)
 
 ## 📖 Description
-
+![summary](https://github.com/ha4219/emogenius/blob/dev/assets/readme/summary.png?raw=true)
 - 한국어 문장을 감정 별로 분류해 그에 맞는 Emoji를 추천한다.
+
+
 
 ## 😀 Team
 
