@@ -17,7 +17,7 @@ from transformers import AdamW
 from transformers.optimization import get_cosine_schedule_with_warmup
 
 from dataset import CustomDataset
-from preprocessing import preprocessing, preprocessing_limit
+from preprocessing import _preprocessing, preprocessing, preprocessing_limit
 import matplotlib.pyplot as plt
 from data.customPath import _get_path_name, _mkdir_path, _plot_acc, _plot_loss
 
@@ -49,6 +49,8 @@ from sklearn.model_selection import train_test_split
 data = preprocessing()
 
 dataset_train, dataset_test = train_test_split(data, test_size=0.25, random_state=0)
+dataset_train = preprocessing()
+# dataset_test = _preprocessing()
 
 data_train = CustomDataset(dataset_train, 0, 1, tok, max_len, True, False)
 data_test = CustomDataset(dataset_test, 0, 1, tok, max_len, True, False)
@@ -196,6 +198,6 @@ path = _get_path_name(NAME, DESC)
 _mkdir_path(path)
 _plot_acc(path, training_acc=train_acc_history, validation_acc=val_acc_history)
 _plot_loss(path, training_loss=train_loss_history, validation_loss=val_loss_history)
-
+torch.save(model.state_dict(), f"{path}/last_{NAME}.pt")
 model.load_state_dict(best_model)
 torch.save(model.state_dict(), f"{path}/{NAME}.pt")

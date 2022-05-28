@@ -18,11 +18,11 @@ from transformers.optimization import get_cosine_schedule_with_warmup
 
 from dataset import CustomDataset
 from model import BERTClassifier
-from preprocessing import preprocessing_test, preprocessing
+from preprocessing import preprocessing_test, preprocessing, preprocessing_train
 import matplotlib.pyplot as plt
 from data.customPath import _get_path_name, _mkdir_path, _plot_acc, _plot_loss
 from matplotlib import font_manager, rc
-font_path = "./fonts/NanumGothic.ttf"
+font_path = "bert_model/fonts/NanumGothic.ttf"
 font = font_manager.FontProperties(fname=font_path).get_name()
 rc('font', family=font)
 plt.rcParams["font.family"] = "NanumGothic"
@@ -43,7 +43,7 @@ def plot2d():
   log_interval = 200
   learning_rate =  5e-5
 
-  PATH = '/home/dongha/code/nlp/runs/2022-05-24-03:35:46_kobert_init_/kobert_init.pt'
+  PATH = '/home/dongha/code/nlp/bert_model/runs/2022-05-28-01:11:59_kobert_init_/kobert_init.pt'
 
   #토큰화
   tokenizer = get_tokenizer()
@@ -58,9 +58,10 @@ def plot2d():
 
   model = BERTClassifier(bertmodel,  dr_rate=0.5).to(device)
 
-  ckpt = torch.load(PATH, map_location='cpu')
-  csd = ckpt.float().state_dict()
-  model.load_state_dict(csd, strict=False)
+  # ckpt = torch.load(PATH, map_location='cpu')
+  # csd = ckpt.float().state_dict()
+  # model.load_state_dict(csd, strict=False)
+  model.load_state_dict(torch.load(PATH, map_location='cpu'), strict=False)
 
   model.eval()
 
@@ -92,17 +93,16 @@ def plot2d():
   d = [i for i in enc.keys()]
 
   for truth, predict in logs:
-    # if truth != predict:
     cnts[truth][predict] += 1
 
   fig, ax = plt.subplots(1, 1, figsize=(15, 15))
 
   ax.imshow(cnts)
 
-  # for i in range(58):
-  #     for j in range(58):
-  #         text = ax.text(j, i, cnts[i][j],
-  #                        ha="center", va="center", color="w")
+  for i in range(58):
+      for j in range(58):
+          text = ax.text(j, i, cnts[i][j],
+                         ha="center", va="center", color="w")
 
   ax.set_title(f'acc: {test_acc}')
   ax.set_ylabel('truth')
@@ -112,7 +112,7 @@ def plot2d():
   plt.setp(ax.get_xticklabels(), rotation=90, ha="right",
           rotation_mode="anchor")
   plt.rc('font', family=font)
-  plt.savefig('plot/check.png')
+  plt.savefig('bert_model/plot/check_test_more.png')
   return
 
 
@@ -127,9 +127,9 @@ def dataset_analysis():
   plt.ylabel('cnt')
   plt.xticks(rotation=90)
   plt.title(f'total: {len(data)}')
-  plt.savefig('plot/dataplot.png')
+  plt.savefig('bert_model/plot/dataplot_train.png')
   return
 
 
 if __name__ == '__main__':
-  dataset_analysis()
+  plot2d()
