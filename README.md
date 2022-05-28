@@ -46,15 +46,12 @@
 
 ![run_gif](https://github.com/ha4219/emogenius/blob/dev/assets/readme/run.gif?raw=true)
 
-<div style="padding: 10px;">
-  문장을 드래그한 후 단축키를 눌러주세요!
-  <br/>
-  <br/>
-  Window: Ctrl+Shift+U <br>
-  Mac: Command+U 
-</div>
+- 문장을 드래그한 후 단축키를 눌러주세요!
+ 
+- Window: Ctrl+Shift+U
+- Mac: Command+U 
 
-단축키 변경은 chrome 확장 프로그램에서 좌측 상단 메뉴바를 클릭 한 후 단축키를 누르면 변경할 수 있습니다.
+- 단축키 변경은 chrome 확장 프로그램에서 좌측 상단 메뉴바를 클릭 한 후 단축키를 누르면 변경할 수 있습니다.
 <img src="https://github.com/ha4219/emogenius/blob/dev/assets/readme/5.png?raw=true" style="display: block;"/>
 
 ## ✅ Task
