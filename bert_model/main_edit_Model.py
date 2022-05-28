@@ -23,7 +23,7 @@ from data.customPath import _get_path_name, _mkdir_path, _plot_acc, _plot_loss
 
 
 #GPU 사용
-device = torch.device("cuda:3")
+device = torch.device("cuda:2")
 #BERT 모델, Vocabulary 불러오기
 bertmodel, vocab = get_pytorch_kobert_model()
 
@@ -36,7 +36,7 @@ max_grad_norm = 1
 log_interval = 200
 learning_rate =  5e-5
 
-NAME = 'kobert_init'
+NAME = 'kobert_edit_hidden'
 DESC = ''
 
 #토큰화
@@ -48,9 +48,9 @@ from sklearn.model_selection import train_test_split
 
 data = preprocessing()
 
-dataset_train, dataset_test = train_test_split(data, test_size=0.25, random_state=0)
-# dataset_train = preprocessing()
-# dataset_test = _preprocessing()
+# dataset_train, dataset_test = train_test_split(data, test_size=0.25, random_state=0)
+dataset_train = preprocessing()
+dataset_test = _preprocessing()
 
 data_train = CustomDataset(dataset_train, 0, 1, tok, max_len, True, False)
 data_test = CustomDataset(dataset_test, 0, 1, tok, max_len, True, False)
@@ -69,8 +69,9 @@ class BERTClassifier(nn.Module):
         super(BERTClassifier, self).__init__()
         self.bert = bert
         self.dr_rate = dr_rate
-                 
-        self.classifier = nn.Linear(hidden_size , num_classes)
+        
+        self.hidden = nn.Linear(hidden_size, 4096)
+        self.classifier = nn.Linear(4096 , num_classes)
         if dr_rate:
             self.dropout = nn.Dropout(p=dr_rate)
     
@@ -86,6 +87,9 @@ class BERTClassifier(nn.Module):
         _, pooler = self.bert(input_ids = token_ids, token_type_ids = segment_ids.long(), attention_mask = attention_mask.float().to(token_ids.device))
         if self.dr_rate:
             out = self.dropout(pooler)
+        out = self.hidden(out)
+        if self.dr_rate:
+            out = self.dropout(out)
         return self.classifier(out)
 
   #BERT 모델 불러오기
