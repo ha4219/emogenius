@@ -41,6 +41,7 @@
 
 4. "압축해제된 확장 프로그램을 로드합니다"를 클릭합니다.
 <img src="https://github.com/ha4219/emogenius/blob/dev/assets/readme/3.png?raw=true" style="display: block;"/>
+
 5. 앱 또는 확장 프로그램 폴더를 찾아 선택합니다.
 
 6. Chrome 다음에서 새 탭을 열고 앱을 클릭한 다음 다음 앱 또는 확장 프로그램을 클릭합니다. 올바르게 로드되고 작동하는지 확인합니다.
