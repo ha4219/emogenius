@@ -5,11 +5,13 @@
 ## Contents
 
 - [Title](#-title)
+- [Description](#-Description)
 - [Team](#-Team)
 - [Install](#-Install)
 - [Run](#-Run)
-- [Description](#-Description)
 - [Task](#-Task)
+- [Release](#-Release)
+- [License](#-License)
 - [Reference](#-Reference)
 
 ## 🎉 Title
@@ -48,8 +50,8 @@
 
 - 문장을 드래그한 후 단축키를 눌러주세요!
  
-- Window: Ctrl+Shift+U
-- Mac: Command+U 
+- `Window`: Ctrl+Shift+U
+- `Mac`: Command+U 
 
 - 단축키 변경은 chrome 확장 프로그램에서 좌측 상단 메뉴바를 클릭 한 후 단축키를 누르면 변경할 수 있습니다.
 <img src="https://github.com/ha4219/emogenius/blob/dev/assets/readme/5.png?raw=true" style="display: block;"/>
@@ -59,6 +61,13 @@
 - [x] Deploy Flask server 
 - [x] Make Chrome Extension
 
+
+## 🌋 Release
+- v1.0.0 (22.05.29)
+  - 초기 앱 릴리즈
+
+## 📄 License
+`KoBERT` 프로그램이 `Apache-2.0`를 따르기에 그대로 사용했습니다. 잘 못 올렸을 경우 알려주세요. 수정하겠습니다.
 
 ## 👍 Reference
 
