@@ -5,14 +5,14 @@
 ## Contents
 
 - [Title](#-title)
-- [Description](#-Description)
-- [Team](#-Team)
-- [Install](#-Install)
-- [Run](#-Run)
-- [Task](#-Task)
-- [Release](#-Release)
-- [License](#-License)
-- [Reference](#-Reference)
+- [Description](#-description)
+- [Team](#-team)
+- [Install](#-install)
+- [Run](#-run)
+- [Task](#-task)
+- [Release](#-release)
+- [License](#-license)
+- [Reference](#-reference)
 
 ## 🎉 Title
 
@@ -31,10 +31,11 @@
 
 ## 🎯 Install
 ![deploy_](https://github.com/ha4219/emogenius/blob/dev/assets/readme/1.png?raw=true)
+[비공개 버전 링크](https://chrome.google.com/webstore/detail/emogenius/lkojoifalckfeaegpnodfldebphhjmpc/related?hl=ko&authuser=0)
+- v1.0.0은 에러가 있는 상태입니다. 따라서 현재 다시 심사 중이기 때문에 아래 방법으로 받아주시면 감사합니다.
 
-
-현재 배포 심사 중 입니다. 따라서 아래 방법을 따라해주세요!
-1. [emogenius donwload link](https://github.com/ha4219/emogenius/releases/download/1.0.0/emogenius.zip)를 통해 해당 파일을 다운받고 압축을 풉니다.
+### 현재 배포 심사 중 입니다. 따라서 아래 방법을 따라해주세요!
+1. [emogenius donwload link](https://github.com/ha4219/emogenius/releases/download/1.0.2/emogenius.zip)를 통해 해당 파일을 다운받고 압축을 풉니다.
 2. chrome://extensions/로 이동합니다.
 3. 오른쪽 상단에서 개발자 모드를 사용 설정합니다.
 <img src="https://github.com/ha4219/emogenius/blob/dev/assets/readme/2.png?raw=true" style="display: block;  width: 200px; height: 70px;"/>
@@ -69,6 +70,9 @@
 ## 🌋 Release
 - v1.0.0 (22.05.29)
   - 초기 앱 릴리즈
+- v1.0.2 (22.05.29)
+  - 알맞지 않는 Emoji 버그 수정
+  - 필요 없는 permission 
 
 ## 📄 License
 `KoBERT` 프로그램이 `Apache-2.0`를 따르기에 그대로 사용했습니다. 잘 못 올렸을 경우 알려주세요. 수정하겠습니다.
