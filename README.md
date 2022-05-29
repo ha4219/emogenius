@@ -65,7 +65,8 @@
 - [x] Fine Tuning KoBERT 
 - [x] Deploy Flask server 
 - [x] Make Chrome Extension
-
+- [ ] Server Dockerfile 작성
+- [ ] Server 이전
 
 ## 🌋 Release
 - v1.0.0 (22.05.29)
