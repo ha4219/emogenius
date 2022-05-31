@@ -18,6 +18,8 @@
 
 - [emogenius](https://github.com/ha4219/emogenius)
 
+[배포 버전](https://chrome.google.com/webstore/detail/emogenius/heddhmefcmbkfoojdngpojbhkkglgcdg?hl=ko&authuser=0)
+
 ## 📖 Description
 ![summary](https://github.com/ha4219/emogenius/blob/dev/assets/readme/summary.png?raw=true)
 - 한국어 문장을 감정 별로 분류해 그에 맞는 Emoji를 추천한다.
@@ -31,8 +33,10 @@
 
 ## 🎯 Install
 ![deploy_](https://github.com/ha4219/emogenius/blob/dev/assets/readme/1.png?raw=true)
-[비공개 버전 링크](https://chrome.google.com/webstore/detail/emogenius/lkojoifalckfeaegpnodfldebphhjmpc/related?hl=ko&authuser=0)
-- v1.0.0은 에러가 있는 상태입니다. 따라서 현재 다시 심사 중이기 때문에 아래 방법으로 받아주시면 감사합니다.
+
+[Chrome_extension ](https://chrome.google.com/webstore/detail/emogenius/heddhmefcmbkfoojdngpojbhkkglgcdg?hl=ko&authuser=0)
+- v1.0.0은 에러가 있는 상태입니다. 따라서 현재 다시 심사 중이기 때문에 아래 방법으로 받아주시면 감사합니다.(22.05.29)
+- v1.0.2 배포 심사 완료됐습니다. 따라서 위에 링크를 통해 실행해주세요!(22.05.31)
 
 ### 현재 배포 심사 중 입니다. 따라서 아래 방법을 따라해주세요!
 1. [emogenius donwload link](https://github.com/ha4219/emogenius/releases/download/1.0.2/emogenius.zip)를 통해 해당 파일을 다운받고 압축을 풉니다.
@@ -74,6 +78,7 @@
 - v1.0.2 (22.05.29)
   - 알맞지 않는 Emoji 버그 수정
   - 필요 없는 permission 제거
+  - (22.05.31) chrome_extension 배포 완료
 
 ## 📄 License
 `KoBERT` 프로그램이 `Apache-2.0`를 따르기에 그대로 사용했습니다. 잘 못 올렸을 경우 알려주세요. 수정하겠습니다.
