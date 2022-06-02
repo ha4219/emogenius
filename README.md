@@ -79,6 +79,7 @@
   - 알맞지 않는 Emoji 버그 수정
   - 필요 없는 permission 제거
   - (22.05.31) chrome_extension 배포 완료
+  - (22.06.02) chrome_extension 설명 추가
 
 ## 📄 License
 `KoBERT` 프로그램이 `Apache-2.0`를 따르기에 그대로 사용했습니다. 잘 못 올렸을 경우 알려주세요. 수정하겠습니다.
