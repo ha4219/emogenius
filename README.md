@@ -1,6 +1,6 @@
 # [emogenius](https://github.com/ha4219/emogenius)
 
-![emogenius](https://github.com/ha4219/emogenius/blob/dev/assets/readme/0.png?raw=true)
+![emogenius](https://chrome.google.com/webstore/detail/emogenius/heddhmefcmbkfoojdngpojbhkkglgcdg?hl=ko&authuser=0)
 
 ## Contents
 
